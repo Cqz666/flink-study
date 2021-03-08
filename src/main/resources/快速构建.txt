@@ -1,0 +1,6 @@
+使用Intellij IDEA创建一个Maven新项目
+勾选Create from archetype
+点击Add Archetype按钮
+GroupId中输入 org.apache.flink
+ArtifactId中输入 flink-quickstart-java
+Version中输入版本号，比如：1.10.1
