@@ -29,26 +29,26 @@ under the License.
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<flink.version>1.10.1</flink.version>
+		<flink.version>1.12.2</flink.version>
 		<java.version>1.8</java.version>
 		<scala.binary.version>2.11</scala.binary.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>apache.snapshots</id>
-			<name>Apache Development Snapshot Repository</name>
-			<url>https://repository.apache.org/content/repositories/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>apache.snapshots</id>-->
+<!--			<name>Apache Development Snapshot Repository</name>-->
+<!--			<url>https://repository.apache.org/content/repositories/snapshots/</url>-->
+<!--			<releases>-->
+<!--				<enabled>false</enabled>-->
+<!--			</releases>-->
+<!--			<snapshots>-->
+<!--				<enabled>true</enabled>-->
+<!--			</snapshots>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 
 	<dependencies>
 		<!-- Apache Flink dependencies -->
@@ -57,26 +57,54 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-java</artifactId>
 			<version>${flink.version}</version>
-			<!--<scope>provided</scope>-->
+<!--			<scope>provided</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
-			<!--<scope>provided</scope>-->
+<!--			<scope>provided</scope>-->
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-clients_2.11</artifactId>
+			<version>${flink.version}</version>
 		</dependency>
 
 		<!-- Add connector dependencies here. They must be in the default scope (compile). -->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.flink</groupId>-->
+<!--			<artifactId>flink-connector-kafka-0.11_2.11</artifactId>-->
+<!--			<version>${flink.version}</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kafka-0.11_2.11</artifactId>
+			<artifactId>flink-connector-kafka_2.11</artifactId>
 			<version>${flink.version}</version>
+			<!--            <scope>provided</scope>-->
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.bahir</groupId>
 			<artifactId>flink-connector-redis_2.11</artifactId>
 			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>flink-streaming-java_2.11</artifactId>
+					<groupId>org.apache.flink</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -90,6 +118,14 @@ under the License.
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.44</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.75</version>
+		</dependency>
+
+
 		<!-- Example:
 
 		<dependency>
@@ -98,20 +134,24 @@ under the License.
 			<version>${flink.version}</version>
 		</dependency>
 		-->
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+		</dependency>
 		<!-- Add logging framework, to produce console output when running in the IDE. -->
 		<!-- These dependencies are excluded from the application JAR by default. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.7</version>
-			<scope>runtime</scope>
+<!--			<scope>runtime</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-			<scope>runtime</scope>
+<!--			<scope>runtime</scope>-->
 		</dependency>
 	</dependencies>
 
@@ -165,7 +205,7 @@ under the License.
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.cqz.flink.demo.StreamingJob</mainClass>
+									<mainClass>com.cqz.flink.api.sink.SinkTest4Kafka2</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
