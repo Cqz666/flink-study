@@ -63,7 +63,7 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
-<!--			<scope>provided</scope>-->
+			<!--			<scope>provided</scope>-->
 		</dependency>
 
 		<dependency>
@@ -91,6 +91,10 @@ under the License.
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -143,15 +147,20 @@ under the License.
 		<!-- These dependencies are excluded from the application JAR by default. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.7</version>
-<!--			<scope>runtime</scope>-->
+			<!--            <scope>runtime</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-<!--			<scope>runtime</scope>-->
+			<!--            <scope>runtime</scope>-->
 		</dependency>
 	</dependencies>
 
